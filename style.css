@@ -1,0 +1,273 @@
+:root {
+    --posX: 0em;
+    --posY: -15em;
+    --rotate: 0deg;
+    --perspective: 15em;
+    --distance: 15em
+}
+
+@font-face {
+  font-family: "Pixelated MS Sans Serif";
+  src: url("fonts/ms_sans_serif.woff") format("woff");
+  src: url("fonts/ms_sans_serif.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cena {
+  width: 100%;
+  height: 100vh;
+  /* border: 2px solid white; */
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  perspective: var(--perspective);
+  perspective-origin: 50% calc(50% - 2em);
+}
+
+.map {
+  font-family: "Pixelated MS Sans Serif", Arial;
+  font-size: 16px;
+  /* padding: 2px; */
+  /* box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf; */
+  border: 2px outset #dfdfdf;
+  position: absolute;
+  background-color: #c0c0c0;
+  width: 200px;
+  height: 200px;
+  right: 0;
+  bottom: 0;
+}
+
+.map::before {
+  content: 'map.exe';
+  color: #fff;
+  padding: 0 25px;
+  position: absolute;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  background: url("https://i.pinimg.com/originals/e9/9e/03/e99e03607e4b74e07c95fb342b5209f6.png") 6px center no-repeat, linear-gradient(to right, #000080, #0000ff);
+  background-size: 15px, 100%;
+  width:100%;
+  height:20px;
+}
+
+.map::after {
+  content: ' ';
+  box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+  background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='8' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0h2v1h1v1h2V1h1V0h2v1H7v1H6v1H5v1h1v1h1v1h1v1H6V6H5V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0V0z' fill='%23000'/%3E%3C/svg%3E") top 3px left 4px, #c0c0c0;
+  background-position: top 3px left 4px;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 4px;
+  top:3px;
+  width:16px;
+  height:14px;
+}
+
+.map:active::after {
+  box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;
+}
+
+.mapContent {
+  background: url("https://raw.githubusercontent.com/ibid-11962/Windows-95-3D-Maze-Screensaver/master/floor.bmp");
+  background-size: 120px;
+  margin-top: 10%;
+  width: 100%;
+  height: 90%;
+}
+
+.murinhos {
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  /* position: absolute; */
+  /* background-size: 10px; */
+  width: 10px;
+  height: 10px;
+  background: url("https://raw.githubusercontent.com/ibid-11962/Windows-95-3D-Maze-Screensaver/master/wall.bmp");
+}
+
+.cam {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  transition: all 0.2s;
+  transform: rotateY(var(--rotate))
+    translateX(calc(0em - var(--distance)));
+}
+
+.sala {
+  transform-style: preserve-3d;
+  transform: translate3d(var(--posX), -5em , var(--posY));
+  transition: all 0.3s;
+}
+
+.walls {
+  transform-style: preserve-3d;
+  animation: up 1s linear;
+}
+
+.sides {
+/*   backface-visibility: hidden; */
+  width: calc(var(--distance) * 2);
+  height: var(--distance);
+  position: absolute;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  background: url("https://raw.githubusercontent.com/ibid-11962/Windows-95-3D-Maze-Screensaver/master/wall.bmp");
+}
+
+@-webkit-keyframes up {
+  from {
+    transform:
+      translateY(15em)
+      scaleY(0)
+  }
+  to {
+    transform:
+      translateY(10em)
+      scaleY(10em)
+  }
+}
+
+.floorBottom {
+  width: calc(var(--distance) * 2);
+  height: calc(var(--distance) * 2);
+  position: absolute;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  /* background: url("https://raw.githubusercontent.com/ibid-11962/Windows-95-3D-Maze-Screensaver/master/floor.bmp"); */
+  background-color: #f93;
+  background-size: 20px;
+  transform: rotateX(90deg)
+    translateY(var(--distance))
+    scale(7);
+}
+
+.floorTop {
+  width: calc(var(--distance) * 2);
+  height: calc(var(--distance) * 2);
+  position: absolute;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+/*   background: url("https://raw.githubusercontent.com/ibid-11962/Windows-95-3D-Maze-Screensaver/master/ceiling2.bmp"); */
+  background-color: gray;
+  background-size: 20px;
+  transform: rotateX(90deg)
+    translateZ(var(--distance))
+    translateY(var(--distance))
+    scale(7);
+}
+ 
+/* .W001 {
+  transform:
+    translate3d(
+      var(--distance),
+      0,
+      var(--distance)
+    )
+    rotateY(90deg);
+} */
+/*
+.W002 {
+  transform:
+    translate3d(
+      calc(0em - var(--distance)),
+      0,
+      var(--distance)
+    )
+    rotateY(90deg);
+}
+.W003 {
+  transform:
+    translate3d(
+      calc(0em - var(--distance) * 3),
+      0,
+      var(--distance)
+    )
+    rotateY(90deg);
+}
+.W004 {
+  transform:
+    translate3d(
+      calc(0em - var(--distance) * 4),
+      0,
+      0
+    )
+/*     rotateY(90deg); 
+}
+.W005 {
+  transform:
+    translate3d(
+      calc(0em - var(--distance) * 5),
+      0,
+      0
+    )
+/*     rotateY(90deg); 
+}
+.W006 {
+   transform:
+    translate3d(
+      calc(0em - var(--distance) * 6),
+      0,
+      0
+    )
+/*     rotateY(90deg); 
+}
+.W007 {
+  transform: rotateY(90deg)
+    translateZ(-90em)
+    translateX(-45em);
+}
+.W008 {
+  transform: rotateY(90deg)
+    translateZ(-60em)
+    translateX(-75em);
+}
+.W096 {
+  width: 210em;
+  transform: translateX(-105em)
+    translateZ(90em);
+}
+.W097 {
+  width: 210em;
+  transform: translateX(-105em)
+    translateZ(-120em);
+}
+.W098 {
+  width: 240em;
+  transform: translateX(-105em)
+    rotateY(90deg)
+    translateZ(90em);
+}
+
+.W099 {
+  width: 240em;
+  transform: translateX(-105em)
+    rotateY(-90deg)
+    translateZ(120em);
+} */
